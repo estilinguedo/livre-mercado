@@ -11,7 +11,7 @@
     <header>
         <section class="conteudo_header">
             <figure>
-                <img src="/var/www/html/livre_mercado/imagens/Logos" alt="Logo do livre mercado.">
+                <img src="/livre_mercado/imagens/Logos/livre_mercado_logo.png" alt="Logo do livre mercado.">
             </figure>
             <input type="text" name="pesquisa_produto" value="" class="" id="barra_pesquisa" placeholder="Buscar produtos, marcas e muito mais…" maxlength="120"
             autocapitalize="off"  autocomplete="off" aria-activedescendant="" aria-controls="sb-suggestions-1" aria-autocomplete="list" aria-expanded="false" role="combobox">
@@ -19,7 +19,7 @@
             
             <div role="listbox" class="lista_sugestao" id="sugestao" aria-hidden="true">
                 <ul role="group" class="item_sugestao"></ul>
-                <div role="group" class="loja_sugestao">
+                <div role="group" class="loja_sugestao" aria-label="lojas oficiais">
                     <ul role="presentation" class="loja_item_sugestao"></ul>
                 </div>
             </div>
@@ -29,7 +29,7 @@
                 </a>
             </div>
             <div class="cep_cabecalho">
-                <a class="cep_link" href=""> 
+                <a class="cep_link" href="" data-modal-action="true" aria-expanded="false" aria-haspopup="true"> 
                     <span class="cep_texto">Informe seu CEP</span>
                 </a>    
             </div>
@@ -37,7 +37,7 @@
                 <ul class="lista_navegacao">
                     <li class="navegacao_item">
                         <a href="" class="navegacao_link" rel="">Categorias</a>
-                        <div class="navegacao_categoria">
+                        <div class="navegacao_categoria" aria-label="Categorias" aria-modal="true" tabindex="-1" role="dialog" hidden="hidden">
                             <ul class="lista_categoria">
                                 <li class="categoria_item">
                                     <a href="">Veículos</a>
