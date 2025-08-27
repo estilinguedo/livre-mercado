@@ -28,9 +28,8 @@
                 </a>
             </div>
             <div class="cep_cabecalho">
-                <a class="nav-menu-cp nav-menu-cp-logged" href="" 
-                data-modal-action="true" aria-expanded="false" aria-haspopup="true"> 
-                    <span class="item_cep_cabecalho">Informe seu CEP</span>
+                <a class="cep_link" href="" data-modal-action="true" aria-expanded="false" aria-haspopup="true"> 
+                    <span class="cep_texto">Informe seu CEP</span>
                 </a>    
             </div>
             <div class="navegacao_cabecalho">         
