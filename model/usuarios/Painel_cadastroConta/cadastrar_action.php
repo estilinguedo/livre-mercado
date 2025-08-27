@@ -11,7 +11,7 @@ $tipo_usuario = $_POST['tipo_usuario'] ?? 'usuario';
 
 if (!$nome || !$email || !$senha || !$cpf_cnpj) {
     $_SESSION['msg'] = "Preencha todos os campos obrigatórios!";
-    header("Location: cadastrar.php");
+    header("Location: cadastrar.html");
     exit;
 }
 
@@ -19,7 +19,7 @@ $check = $pdo->prepare("SELECT id_usuario FROM usuarios WHERE email = :email OR 
 $check->execute([':email' => $email, ':cpf' => $cpf_cnpj]);
 if ($check->rowCount() > 0) {
     $_SESSION['msg'] = "E-mail ou CPF/CNPJ já cadastrados!";
-    header("Location: cadastrar.php");
+    header("Location: cadastrar.html");
     exit;
 }
 
@@ -36,5 +36,5 @@ $stmt->execute([
 ]);
 
 $_SESSION['msg'] = "Conta criada com sucesso! Faça login.";
-header("Location: ../Painel_loginConta/login.php");
+header("Location: ../Painel_loginConta/login.html");
 exit;

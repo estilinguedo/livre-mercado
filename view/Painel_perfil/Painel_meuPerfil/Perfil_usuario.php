@@ -2,7 +2,7 @@
 try {
     $dsn = 'mysql:host=localhost;dbname=sistema_livre_mercado;charset=utf8';
     $usuario = 'root';
-    $senha = '';       
+    $senha = '';
     $conexao = new PDO($dsn, $usuario, $senha);
     $conexao->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
@@ -15,7 +15,6 @@ $stmt = $conexao->prepare($sql);
 $stmt->execute();
 $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,5 +31,6 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
     <?php else: ?>
         <p>Usuário não encontrado.</p>
     <?php endif; ?>
+
 </body>
 </html>

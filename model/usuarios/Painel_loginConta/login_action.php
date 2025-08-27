@@ -19,6 +19,6 @@ if ($user && password_verify($senha, $user['senha_hash'])) {
     exit;
 } else {
     $_SESSION['msg'] = "Login inválido!";
-    header("Location: login.php");
+    header("Location: login.html");
     exit;
 }

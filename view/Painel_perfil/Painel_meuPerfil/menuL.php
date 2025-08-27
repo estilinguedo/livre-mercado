@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Minha conta</title>
-  <!-- Ícones do Google (Material Icons) -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
