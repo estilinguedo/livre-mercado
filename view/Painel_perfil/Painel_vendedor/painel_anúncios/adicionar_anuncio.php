@@ -1,5 +1,82 @@
 <?php
 session_start();
+require_once $_SERVER['DOCUMENT_ROOT'] . "/livre_mercado/factory/conexao.php";
+
+$pdo = (new Caminho())->getConn();
+$mensagem = '';
+
+// Buscar categorias para o menu
+$stmt_cat = $pdo->query("SELECT id_categoria, nome FROM categorias ORDER BY nome ASC");
+$categorias = $stmt_cat->fetchAll(PDO::FETCH_ASSOC);
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['acao']) && $_POST['acao'] == 'adicionar') {
+    $nome = trim($_POST['nome']);
+    $descricao = trim($_POST['descricao']);
+    $preco = $_POST['preco'];
+    $estoque = filter_input(INPUT_POST, 'estoque', FILTER_VALIDATE_INT);
+    if (!isset($_SESSION['id_usuario'])) {
+          echo "<script>
+            alert('Email não encontrado! Verifique e tente novamente.');
+            window.location.href='/livre_mercado/view/Painel_perfil/Painel_meuPerfil/login_email_usuario.php';
+        </script>";
+        exit;
+    }
+
+    $id_vendedor = $_SESSION['id_usuario'];
+    $id_categoria = (int)$_POST['id_categoria'];
+    $imagem_url = null;
+
+    if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] == UPLOAD_ERR_OK) {
+        $diretorio_destino = $_SERVER['DOCUMENT_ROOT'] . '/livre_mercado/imagens/produtos/';
+        if (!is_dir($diretorio_destino)) {
+            mkdir($diretorio_destino, 0777, true);
+        }
+
+        $nome_arquivo = uniqid() . '-' . basename($_FILES['imagem']['name']);
+        $caminho_completo = $diretorio_destino . $nome_arquivo;
+
+        if (move_uploaded_file($_FILES['imagem']['tmp_name'], $caminho_completo)) {
+            $imagem_url = '/livre_mercado/imagens/produtos/' . $nome_arquivo;
+        } else {
+            $mensagem = "Erro ao mover o arquivo de imagem.";
+        }
+    } else {
+        $mensagem = "Erro no upload da imagem ou nenhuma imagem enviada.";
+    }
+
+    if ($imagem_url && empty($mensagem)) {
+        try {
+            $pdo->beginTransaction();
+
+            $sql_produto = "INSERT INTO produtos (id_vendedor, nome, descricao, preco, estoque, id_categoria, status) 
+                            VALUES (:id_vendedor, :nome, :descricao, :preco, :estoque, :id_categoria, 'ativo')";
+            $stmt_produto = $pdo->prepare($sql_produto);
+            $stmt_produto->execute([
+                ':id_vendedor' => $id_vendedor,
+                ':nome' => $nome,
+                ':descricao' => $descricao,
+                ':preco' => $preco,
+                ':estoque' => $estoque,
+                ':id_categoria' => $id_categoria
+            ]);
+
+            $id_produto = $pdo->lastInsertId();
+
+            $sql_imagem = "INSERT INTO imagens_produtos (id_produto, url_imagem) VALUES (:id_produto, :url_imagem)";
+            $stmt_imagem = $pdo->prepare($sql_imagem);
+            $stmt_imagem->execute([
+                ':id_produto' => $id_produto,
+                ':url_imagem' => $imagem_url
+            ]);
+
+            $pdo->commit();
+            $mensagem = "Anúncio criado com sucesso!";
+        } catch (PDOException $e) {
+            $pdo->rollBack();
+            $mensagem = "Erro ao salvar anúncio: " . $e->getMessage();
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -8,9 +85,9 @@ session_start();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Livre mercado</title>
-    <link rel="stylesheet" href="../../../../css/default.css">
-     <link rel="stylesheet" href="/livre_mercado/css/vendas.css">
-    <link href="/livre_mercado/imagens/logos/livre_mercado_logo.png" rel="icon" data-head-react="true">
+    <link rel="stylesheet" href="/livre_mercado/css/default.css">
+    <link rel="stylesheet" href="/livre_mercado/css/adicionar_anuncio.css">
+     <link href="/livre_mercado/imagens/logos/livre_mercado_logo.png" rel="icon" data-head-react="true">
     <script src="/livre_mercado/js/menu_categorias.js" defer></script>
     <script src="/livre_mercado/js/menu_aside.js" defer></script>
 </head>
@@ -19,7 +96,7 @@ session_start();
         <section class="conteudo_header">
             <nav class="busca">    
                 <figure>
-                    <a href="#">
+                    <a href="/livre_mercado/view/Painel_principal/pagina_inicial.php">
                         <img id="logo_texto" src="/livre_mercado/imagens/Logos/livre_mercado_logo_com_texto.png" alt="Logo Livre Mercado">
                     </a>
                 </figure>
@@ -185,52 +262,63 @@ session_start();
         </section>
     </header>
     <main>
-        <div class="container">
-            <h1>Vendas</h1>
-        </div>
-        <div class="container">
-            <section class="controls" aria-label="filtros e busca">
-                <div class="busca_filtros">
-                    <div class="busca_anuncio">
-                    <svg width="18" height="18" viewBox="0 0 24 24" style="margin-right:8px;opacity:.6">
-                        <path d="M21 21l-4.35-4.35" stroke="#666" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
-                        <circle cx="11" cy="11" r="6" stroke="#666" stroke-width="1.6" fill="none"></circle>
-                    </svg>
-                    <input placeholder="Título, código universal, SKU ou #" />
-                    </div>
-                    <span class="divisor">|</span>
-                    <div class="filtros_busca_anuncio">
-                        <div>
-                            Últimos 6 meses
-                            <img src="/livre_mercado/imagens/icones/seta_botao_icon.png" alt="">
-                        </div>
-                    
-                        <div class="filtro_item">
-                            <img src="/livre_mercado/imagens/icones/filtro.png" class="icone" alt="">
-                            Filtrar e ordenar
-                            <img src="/livre_mercado/imagens/icones/seta_botao_icon.png" alt="">
-                        </div>
-                    </div>
+    <div class="criar-anuncio-container">
+        <h1>Criar novo anúncio</h1>
 
-                    <span class="count">0 vendas</span>
-                </div>
-            </section>
-            <section>
-                <div class="cartao_anuncio">
-                    <img src="/livre_mercado/imagens/icones/anuncios_icon/anuncio_icon.png" alt="Sem vendas">
-                    <h2>Você ainda não tem vendas</h2>
-                    <p>Tente criar um anúncio para receber vendas.</p>
-                    <a class="link_anunciar" href="/livre_mercado/view\Painel_perfil\Painel_vendedor\painel_anúncios\anuncios.php">Ir para Anúncios</a>
-                </div>
-            </section>
-        </div>
+        <?php if (!empty($mensagem)): ?>
+            <div class="mensagem"><?= htmlspecialchars($mensagem) ?></div>
+        <?php endif; ?>
+
+        <form action="adicionar_anuncio.php" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="acao" value="adicionar">
+
+            <div class="form-group">
+                <label for="nome">Título do Anúncio</label>
+                <input type="text" id="nome" name="nome" required>
+            </div>
+
+            <div class="form-group">
+                <label for="descricao">Descrição</label>
+                <textarea id="descricao" name="descricao" rows="4" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="preco">Preço (R$)</label>
+                <input type="number" id="preco" name="preco" step="0.01" required>
+            </div>
+
+            <div class="form-group">
+                <label for="estoque">Estoque</label>
+                <input type="number" id="estoque" name="estoque" required>
+            </div>
+
+            <div class="form-group">
+                <label for="id_categoria">Categoria</label>
+                <select id="id_categoria" name="id_categoria" required>
+                    <option value="">Selecione uma categoria</option>
+                    <?php foreach ($categorias as $cat): ?>
+                        <option value="<?= $cat['id_categoria'] ?>">
+                            <?= htmlspecialchars($cat['nome']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="imagem">Imagem do Produto</label>
+                <input type="file" id="imagem" name="imagem" accept="image/*" required>
+            </div>
+
+            <button type="submit" class="btn-salvar">Salvar Anúncio</button>
+        </form>
+    </div>
     </main>
     <aside>
         <div class="barra_lateral">
             <h3>Minha conta</h3>
             <ul>
                 <li>
-                    <img src="/livre_mercado/imagens/icones/anuncios_icon/compras_icon.png" alt="">
+                    <img src="../../../imagens/icones/anuncios_icon/compras_icon.png" alt="">
                     <button class="botao_expandir_barra_lateral">Compras</button>
                     <ul>
                         <li>
@@ -300,7 +388,7 @@ session_start();
                     </ul>
                 </li>
                 <li>
-                    <img src="/livre_mercado/imagens/icones/anuncios_icon/marketing_icon.png" alt="">
+                    <img src="../../../imagens/icones/anuncios_icon/marketing_icon.png" alt="">
                     <button class="botao_expandir_barra_lateral">Marketing</button>
                     <ul>
                         <li>
@@ -321,19 +409,19 @@ session_start();
                     </ul>
                 </li>
                 <li>
-                    <img src="/livre_mercado/imagens/icones/anuncios_icon/emprestimo_icon.png" alt="">
+                    <img src="../../../imagens/icones/anuncios_icon/emprestimo_icon.png" alt="">
                     <button>Empréstimos</button>
                 </li>
                 <li>
-                    <img src="/livre_mercado/imagens/icones/anuncios_icon/assinatura_icon.png" alt="">
+                    <img src="../../../imagens/icones/anuncios_icon/assinatura_icon.png" alt="">
                     <button>Assinaturas</button>
                 </li>
                 <li>
-                    <img src="/livre_mercado/imagens/icones/anuncios_icon/bioLivre_icon.png" alt="">
+                    <img src="../../../imagens/icones/anuncios_icon/bioLivre_icon.png" alt="">
                     <button>Bio livre</button>
                 </li>
                 <li>
-                    <img src="/livre_mercado/imagens/icones/anuncios_icon/faturamento_icon.png" alt="">
+                    <img src="../../../imagens/icones/anuncios_icon/faturamento_icon.png" alt="">
                     <button class="botao_expandir_barra_lateral">Faturamento</button>
                     <ul>
                         <li>
@@ -345,11 +433,11 @@ session_start();
                     </ul>
                 </li>
                 <li>
-                    <img src="/livre_mercado/imagens/icones/anuncios_icon/perfil_icon.png" alt="">
+                    <img src="../../../imagens/icones/anuncios_icon/perfil_icon.png" alt="">
                     <button onclick="window.location.href='/livre_mercado/view/Painel_perfil/Painel_meuPerfil/Perfil_usuario.php'">Meu perfil</a></button>
                 </li>
                 <li>
-                    <img src="/livre_mercado/imagens/icones/anuncios_icon/configuracoes_icon.png" alt="">
+                    <img src="../../../imagens/icones/anuncios_icon/configuracoes_icon.png" alt="">
                     <button class="botao_expandir_barra_lateral">Configurações</button>
                     <ul>
                         <li>
@@ -360,7 +448,7 @@ session_start();
             </ul>
         </div>
     </aside>
-   <footer style="margin-top: 200px">
+    <footer>
         <section class="mais_info">
             <button id="toggleInfo">
                 <span>Mais informações</span>
@@ -462,5 +550,4 @@ session_start();
         </section>
     </footer>
 </body>
-
 </html>

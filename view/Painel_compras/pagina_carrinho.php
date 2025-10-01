@@ -8,11 +8,10 @@ session_start();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Livre mercado</title>
-    <link rel="stylesheet" href="../../../../css/default.css">
-     <link rel="stylesheet" href="/livre_mercado/css/vendas.css">
-    <link href="/livre_mercado/imagens/logos/livre_mercado_logo.png" rel="icon" data-head-react="true">
+    <link rel="stylesheet" href="/livre_mercado/css/default.css">
+    <link rel="stylesheet" href="/livre_mercado/css/carrinho.css">
+    <link href="../../imagens/logos/livre_mercado_logo.png" rel="icon" data-head-react="true">
     <script src="/livre_mercado/js/menu_categorias.js" defer></script>
-    <script src="/livre_mercado/js/menu_aside.js" defer></script>
 </head>
 <body>
     <header>
@@ -185,182 +184,197 @@ session_start();
         </section>
     </header>
     <main>
-        <div class="container">
-            <h1>Vendas</h1>
-        </div>
-        <div class="container">
-            <section class="controls" aria-label="filtros e busca">
-                <div class="busca_filtros">
-                    <div class="busca_anuncio">
-                    <svg width="18" height="18" viewBox="0 0 24 24" style="margin-right:8px;opacity:.6">
-                        <path d="M21 21l-4.35-4.35" stroke="#666" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
-                        <circle cx="11" cy="11" r="6" stroke="#666" stroke-width="1.6" fill="none"></circle>
-                    </svg>
-                    <input placeholder="Título, código universal, SKU ou #" />
-                    </div>
-                    <span class="divisor">|</span>
-                    <div class="filtros_busca_anuncio">
-                        <div>
-                            Últimos 6 meses
-                            <img src="/livre_mercado/imagens/icones/seta_botao_icon.png" alt="">
-                        </div>
+        <div class="page">
+            <div class="container">
+            <div class="topbar">
+                <div class="caminho_paginas">
+                <a href="#">Produtos ⚡FULL</a>
+                </div>
+                <div class="acoes_topo">
+                <a href="#">Preciso de ajuda</a>
+                <button class="botao_config">Configurações <img src="#" alt="" style="width:14px;height:14px;visibility:hidden"></button>
+                </div>
+            </div>
+            </div>
+            <div class="container main">
+                <section class="cartao">
+                    <h1>Seu carrinho</h1>
+                    <section class="prod-list">
+                        <article class="prod-item">
+                            <label class="carrinho">
+                            <input class="carrinho-input" type="checkbox" checked aria-label="Selecionar produto">
+                            <span class="carrinho-box" aria-hidden="true">
+                                <svg viewBox="0 0 16 16" class="carrinho-svg" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6.78786 9.39574L11.3645 4.81909L12.393 5.84761L6.78786 11.4528L3.60693 8.27185L4.63545 7.24333L6.78786 9.39574Z"/>
+                                </svg>
+                            </span>
+                            </label>
+                            <div class="thumb">IMG</div>
+
+                            <div class="prod-main">
+                                <div class="prod-row">
+                                    <div class="prod-title">produto 1</div>
+                                    <div>
+                                        <div class="qty" aria-label="quantidade">
+                                            <button aria-label="diminuir">−</button>
+                                            <div class="count">3</div>
+                                            <button aria-label="aumentar">+</button>
+                                        </div>
+                                        <div class="disponiveis">+30 disponíveis</div>
+                                    </div>
+                                   
+                                </div>
+                                    <div class="prod-sub"><a href="#" style="color:var(--accent);text-decoration:none">Excluir</a></div>
+                                </div>
+                                <div class="price-col">
+                                    <div class="meta">
+                                        <div class="discount">-20%</div>
+                                        <div class="old-price">R$ 100</div>
+                                </div>
+                                <div class="final">R$ 80</div>
+                            </div>
+                        </article>
+
+                        <article class="prod-item">
+                            <label class="carrinho">
+                            <input class="carrinho-input" type="checkbox" checked aria-label="Selecionar produto">
+                            <span class="carrinho-box" aria-hidden="true">
+                                <svg viewBox="0 0 16 16" class="carrinho-svg" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6.78786 9.39574L11.3645 4.81909L12.393 5.84761L6.78786 11.4528L3.60693 8.27185L4.63545 7.24333L6.78786 9.39574Z"/>
+                                </svg>
+                            </span>
+                            </label>
+                            <div class="thumb">IMG</div>
+
+                           <div class="prod-main">
+                                <div class="prod-row">
+                                    <div class="prod-title">produto 2</div>
+                                    <div>
+                                        <div class="qty" aria-label="quantidade">
+                                            <button aria-label="diminuir">−</button>
+                                            <div class="count">3</div>
+                                            <button aria-label="aumentar">+</button>
+                                        </div>
+                                         <div class="disponiveis">+30 disponíveis</div>
+                                    </div>
+                                </div>
+                                    <div class="prod-sub"><a href="#" style="color:var(--accent);text-decoration:none">Excluir</a></div>
+                                </div>
+                                <div class="price-col">
+                                    <div class="meta">
+                                        <div class="discount">-20%</div>
+                                        <div class="old-price">R$ 100</div>
+                                </div>
+                                <div class="final">R$ 80</div>
+                            </div>
+                        </article>
+
+                        <article class="prod-item">
+                           <label class="carrinho">
+                            <input class="carrinho-input" type="checkbox" checked aria-label="Selecionar produto">
+                            <span class="carrinho-box" aria-hidden="true">
+                                <svg viewBox="0 0 16 16" class="carrinho-svg" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6.78786 9.39574L11.3645 4.81909L12.393 5.84761L6.78786 11.4528L3.60693 8.27185L4.63545 7.24333L6.78786 9.39574Z"/>
+                                </svg>
+                            </span>
+                            </label>
+                            <div class="thumb">IMG</div>
+
+                            <div class="prod-main">
+                                <div class="prod-row">
+                                    <div class="prod-title">produto 3</div>
+                                    <div>
+                                        <div class="qty" aria-label="quantidade">
+                                            <button aria-label="diminuir">−</button>
+                                            <div class="count">3</div>
+                                            <button aria-label="aumentar">+</button>
+                                        </div>
+                                         <div class="disponiveis">+30 disponíveis</div>
+                                    </div>
+                                </div>
+                                    <div class="prod-sub"><a href="#" style="color:var(--accent);text-decoration:none">Excluir</a></div>
+                                </div>
+                                <div class="price-col">
+                                    <div class="meta">
+                                        <div class="discount">-20%</div>
+                                        <div class="old-price">R$ 100</div>
+                                </div>
+                                <div class="final">R$ 80</div>
+                            </div>
+                        </article>
+
+                        <article class="prod-item">
+                            <label class="carrinho">
+                            <input class="carrinho-input" type="checkbox" checked aria-label="Selecionar produto">
+                            <span class="carrinho-box" aria-hidden="true">
+                                <svg viewBox="0 0 16 16" class="carrinho-svg" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6.78786 9.39574L11.3645 4.81909L12.393 5.84761L6.78786 11.4528L3.60693 8.27185L4.63545 7.24333L6.78786 9.39574Z"/>
+                                </svg>
+                            </span>
+                            </label>
+                            <div class="thumb">IMG</div>
+                            <div class="prod-main">
+                                <div class="prod-row">
+                                    <div class="prod-title">produto 4</div>
+                                    <div>
+                                        <div class="qty" aria-label="quantidade">
+                                            <button aria-label="diminuir">−</button>
+                                            <div class="count">3</div>
+                                            <button aria-label="aumentar">+</button>
+                                        </div>
+                                         <div class="disponiveis">+30 disponíveis</div>
+                                    </div>
+                                </div>
+                                <div class="prod-sub"><a href="#" style="color:var(--accent);text-decoration:none">Excluir</a></div>
+                                </div>
+                                <div class="price-col">
+                                    <div class="meta">
+                                        <div class="discount">-20%</div>
+                                        <div class="old-price">R$ 100</div>
+                                </div>
+                                <div class="final">R$ 80</div>
+                            </div>
+                        </article>
+                    </section>
+
+                    <div class="line"><span class="frete-note">Frete</span> <span><strong class="frete-note-resultado">Grátis</strong></span></div>
+                
+                    <div style="font-size:13px;color:var(--muted)">Aproveite o frete grátis adicionando mais produtos ⚡ FULL. <a href="#" style="color:var(--accent)">Ver produtos ></a></div>
+                </section>
+                <aside class="resumo-compra">
+                    <h3>Resumo da compra</h3>
                     
-                        <div class="filtro_item">
-                            <img src="/livre_mercado/imagens/icones/filtro.png" class="icone" alt="">
-                            Filtrar e ordenar
-                            <img src="/livre_mercado/imagens/icones/seta_botao_icon.png" alt="">
-                        </div>
+                    <div class="linha">
+                        <span>Produtos (2)</span>
+                        <span><s>R$ 400,00</s> R$ 320,00</span>
                     </div>
 
-                    <span class="count">0 vendas</span>
-                </div>
-            </section>
-            <section>
-                <div class="cartao_anuncio">
-                    <img src="/livre_mercado/imagens/icones/anuncios_icon/anuncio_icon.png" alt="Sem vendas">
-                    <h2>Você ainda não tem vendas</h2>
-                    <p>Tente criar um anúncio para receber vendas.</p>
-                    <a class="link_anunciar" href="/livre_mercado/view\Painel_perfil\Painel_vendedor\painel_anúncios\anuncios.php">Ir para Anúncios</a>
-                </div>
-            </section>
+                    <div class="linha">
+                        <span>Frete</span>
+                        <span class="verde">Grátis</span>
+                    </div>
+
+                    <div class="linha link">
+                        <a href="#">Cupons</a>
+                    </div>
+
+                    <div class="linha total">
+                        <span>Total</span>
+                        <span>R$ 320,00</span>
+                    </div>
+
+                    <button class="btn-comprar " onclick="window.location.href='/livre_mercado/view/Painel_compras/pagina_finalizar_compra.php'">Continuar a compra</button>
+                </aside>
+            </div>
+            <div class="container">
+            <div>
+                <h3>Produtos que te interessaram</h3>
+                <p style="margin:0;color:var(--muted)">Sugestões personalizadas com base no seu carrinho.</p>
+            </div>
+            </div>
         </div>
     </main>
-    <aside>
-        <div class="barra_lateral">
-            <h3>Minha conta</h3>
-            <ul>
-                <li>
-                    <img src="/livre_mercado/imagens/icones/anuncios_icon/compras_icon.png" alt="">
-                    <button class="botao_expandir_barra_lateral">Compras</button>
-                    <ul>
-                        <li>
-                            <a href="/livre_mercado/view/Painel_compras/pagina_pedidos.php">Compras</a>
-                        </li>
-                        <li>
-                            <a href="/livre_mercado/view/Painel_perfil/Painel_vendedor/painel_perguntas/perguntas.php">Perguntas</a>
-                        </li>
-                        <li>
-                            <a href="#">Opniões</a>
-                        </li>
-                        <li>
-                            <a href="#">Favoritos</a>
-                        </li>
-                        <li>
-                            <a href="#">Lojas que sigo</a>
-                        </li>
-                        <li>
-                            <a href="#">Listas de presentes</a>
-                        </li>
-                        <li>
-                            <a href="#">Veículos e imóveis</a>
-                        </li>
-                        <li>
-                            <a href="#">Buscas salvas</a>
-                        </li>
-
-                    </ul>
-                </li>
-                <li>
-                    <img src="/livre_mercado/imagens/icones/anuncios_icon/vendas_icon.png" alt="">
-                    <button class="botao_expandir_barra_lateral">Vendas</button>
-                    <ul>
-                        <li>
-                            <a href="">Resumo</a>
-                        </li>
-                        <li>
-                            <a href="">Novidades</a>
-                        </li>
-                        <li>
-                            <a href="/livre_mercado/view/Painel_perfil/Painel_vendedor/painel_anúncios/anuncios.php">Anúncios</a>
-                        </li>
-                        <li>
-                            <a href="/livre_mercado/view/Painel_perfil/Painel_vendedor/painel_perguntas/perguntas.php">Perguntas</a>
-                        </li>
-                        <li>
-                            <a href="/livre_mercado/view/Painel_perfil/Painel_vendedor/painel_vendas/vendas.php">Vendas</a>
-                        </li>
-                        <li>
-                            <a href="">Pós-venda</a>
-                        </li>
-                        <li>
-                            <a href="">Métricas</a>
-                        </li>
-                        <li>
-                            <a href="">Reputação</a>
-                        </li>
-                        <li>
-                            <a href="">Preferências de venda</a>
-                        </li>
-                        <li>
-                            <a href="">Central de vendedores</a>
-                        </li>
-                        <li>
-                            <a href="">Veículos e imóveis</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <img src="/livre_mercado/imagens/icones/anuncios_icon/marketing_icon.png" alt="">
-                    <button class="botao_expandir_barra_lateral">Marketing</button>
-                    <ul>
-                        <li>
-                            <a href="">Central de marketing</a>
-                        </li>
-                        <li>
-                            <a href="">Publicidade</a>
-                        </li>
-                        <li>
-                            <a href="">Promoções</a>
-                        </li>
-                        <li>
-                            <a href="">Minha página</a>
-                        </li>
-                        <li>
-                            <a href="">Canal de transmissão</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <img src="/livre_mercado/imagens/icones/anuncios_icon/emprestimo_icon.png" alt="">
-                    <button>Empréstimos</button>
-                </li>
-                <li>
-                    <img src="/livre_mercado/imagens/icones/anuncios_icon/assinatura_icon.png" alt="">
-                    <button>Assinaturas</button>
-                </li>
-                <li>
-                    <img src="/livre_mercado/imagens/icones/anuncios_icon/bioLivre_icon.png" alt="">
-                    <button>Bio livre</button>
-                </li>
-                <li>
-                    <img src="/livre_mercado/imagens/icones/anuncios_icon/faturamento_icon.png" alt="">
-                    <button class="botao_expandir_barra_lateral">Faturamento</button>
-                    <ul>
-                        <li>
-                            <a href="#">Tarifas e pagamentos</a>
-                        </li>
-                        <li>
-                            <a href="#">Emissor de NF-e</a>
-                        </li> 
-                    </ul>
-                </li>
-                <li>
-                    <img src="/livre_mercado/imagens/icones/anuncios_icon/perfil_icon.png" alt="">
-                    <button onclick="window.location.href='/livre_mercado/view/Painel_perfil/Painel_meuPerfil/Perfil_usuario.php'">Meu perfil</a></button>
-                </li>
-                <li>
-                    <img src="/livre_mercado/imagens/icones/anuncios_icon/configuracoes_icon.png" alt="">
-                    <button class="botao_expandir_barra_lateral">Configurações</button>
-                    <ul>
-                        <li>
-                            <a href="#">Minhas marcas</a>
-                        </li> 
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </aside>
-   <footer style="margin-top: 200px">
+    <footer  >
         <section class="mais_info">
             <button id="toggleInfo">
                 <span>Mais informações</span>

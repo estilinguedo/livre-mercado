@@ -9,7 +9,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Livre mercado</title>
     <link rel="stylesheet" href="../../../../css/default.css">
-     <link rel="stylesheet" href="/livre_mercado/css/vendas.css">
+    <link rel="stylesheet" href="/livre_mercado/css/perguntas.css">
     <link href="/livre_mercado/imagens/logos/livre_mercado_logo.png" rel="icon" data-head-react="true">
     <script src="/livre_mercado/js/menu_categorias.js" defer></script>
     <script src="/livre_mercado/js/menu_aside.js" defer></script>
@@ -184,47 +184,75 @@ session_start();
             </nav>
         </section>
     </header>
-    <main>
-        <div class="container">
-            <h1>Vendas</h1>
-        </div>
-        <div class="container">
-            <section class="controls" aria-label="filtros e busca">
-                <div class="busca_filtros">
-                    <div class="busca_anuncio">
-                    <svg width="18" height="18" viewBox="0 0 24 24" style="margin-right:8px;opacity:.6">
-                        <path d="M21 21l-4.35-4.35" stroke="#666" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
-                        <circle cx="11" cy="11" r="6" stroke="#666" stroke-width="1.6" fill="none"></circle>
-                    </svg>
-                    <input placeholder="Título, código universal, SKU ou #" />
+        <main>
+            <div class="container">
+                <div class="topbar">
+                    <div class="breadcrumbs"><a href="/livre_mercado/view/Painel_perfil/Painel_vendedor/painel_vendas/vendas.php">Vendas</a> › <span style="color:#6b6b6b;margin-left:6px">Perguntas</span></div>
+                    <div class="acoes_topo">
+                      <a href="#">Preciso de ajuda</a>
+                      <button class="botao_config">Configurações <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23000' stroke-width='1.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" alt=""></button>
                     </div>
-                    <span class="divisor">|</span>
-                    <div class="filtros_busca_anuncio">
-                        <div>
-                            Últimos 6 meses
-                            <img src="/livre_mercado/imagens/icones/seta_botao_icon.png" alt="">
-                        </div>
-                    
-                        <div class="filtro_item">
-                            <img src="/livre_mercado/imagens/icones/filtro.png" class="icone" alt="">
-                            Filtrar e ordenar
-                            <img src="/livre_mercado/imagens/icones/seta_botao_icon.png" alt="">
-                        </div>
-                    </div>
+                </div>
 
-                    <span class="count">0 vendas</span>
-                </div>
+
+                <div class="page-grid">
+                <div>
+                <section class="cartao_prazo_resposta">
+                    <h2>Prazo de resposta</h2>
+                    <p>É o prazo decorrido a partir do momento que você recebe a pergunta até respondê-la.</p>
+                    <p><strong>Por favor, responda em até 1 hora para aumentar as chances de concluir a venda.</strong></p>
+                    <a href="#">Saiba mais</a>
+
+
+                    <div class="info_prazos">
+                        <div>Seg a sex, das 9 às 18h</div>
+                        <div>Seg a sex, das 18 às 00h</div>
+                        <div>Sábado e domingo</div>
+                        <div>No momento, não há perguntas suficientes dos últimos 14 dias para exibir seu tempo de resposta.</div>
+                    </div>
+                </section>
+                <section style="margin-top:14px;background:transparent">
+                    <div style="display:flex;gap:8px;margin-top:6px">
+                        <div class="filtro_chip">Últimos 15 dias <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6' stroke='%236b6b6b' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" alt=""></div>
+                        <div class="filtro_chip">A responder <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6' stroke='%236b6b6b' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" alt=""></div>
+                        <div class="filtro_chip">Menos recentes <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6' stroke='%236b6b6b' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" alt=""></div>
+                    </div>
+                </section>
+            </div>
+
+
+            <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;align-items:center;">
+            <div style="flex:1"></div>
+            <div class="status_row">
+            <div class="status_text">0 - 0 de 0 perguntas</div>
+            <div class="status_text">|</div>
+            <div class="status_text">Expandir todas</div>
+            <div class="toggle" aria-hidden="true"></div>
+            </div>
+            </div>
+
+
+            <section class="cartao_perguntas">
+            <svg width="92" height="92" viewBox="0 0 92 92" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:12px;opacity:0.85">
+            <rect x="6" y="22" width="80" height="52" rx="4" fill="#fff" stroke="#d7d7d7" stroke-width="2"/>
+            <rect x="18" y="32" width="56" height="34" rx="2" fill="#f2f2f2"/>
+            <path d="M10 76h72" stroke="#d7d7d7" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="46" cy="48" r="10" fill="#fff" stroke="#d7d7d7"/>
+            <text x="46" y="52" font-size="12" font-family="ProximaNova, Arial" fill="#9a9a9a" text-anchor="middle" alignment-baseline="middle">?</text>
+            </svg>
+
+
+            <h2>Não há nada aqui...</h2>
+            <p>Você não tem perguntas.</p>
+            <a href="/livre_mercado/view/Painel_perfil/Painel_vendedor/painel_anúncios/anuncios.php">Ir para Anúncios</a>
             </section>
-            <section>
-                <div class="cartao_anuncio">
-                    <img src="/livre_mercado/imagens/icones/anuncios_icon/anuncio_icon.png" alt="Sem vendas">
-                    <h2>Você ainda não tem vendas</h2>
-                    <p>Tente criar um anúncio para receber vendas.</p>
-                    <a class="link_anunciar" href="/livre_mercado/view\Painel_perfil\Painel_vendedor\painel_anúncios\anuncios.php">Ir para Anúncios</a>
-                </div>
-            </section>
-        </div>
-    </main>
+
+
+            </div>
+            </div>
+            </div>
+        </main>
     <aside>
         <div class="barra_lateral">
             <h3>Minha conta</h3>
@@ -360,7 +388,7 @@ session_start();
             </ul>
         </div>
     </aside>
-   <footer style="margin-top: 200px">
+    <footer>
         <section class="mais_info">
             <button id="toggleInfo">
                 <span>Mais informações</span>

@@ -1,5 +1,51 @@
-<?php
+  <?php
 session_start();
+require_once $_SERVER['DOCUMENT_ROOT'] . "/livre_mercado/factory/conexao.php";
+$db = new Caminho();
+$pdo = $db->getConn();  
+if (!isset($_GET['id']) || !filter_var($_GET['id'], FILTER_VALIDATE_INT)) {
+    die("Produto não encontrado.");
+}
+
+$id_produto = $_GET['id'];
+function buscarDetalhesProduto($pdo, $id) {
+    try {
+        $sql_produto = "SELECT * FROM produtos WHERE id_produto = :id AND status = 'ativo'";
+        $stmt_produto = $pdo->prepare($sql_produto);
+        $stmt_produto->execute([':id' => $id]);
+        $produto = $stmt_produto->fetch(PDO::FETCH_ASSOC);
+
+        if (!$produto) {
+            return null;
+        }
+
+        // Busca todas as imagens associadas ao produto
+        $sql_imagens = "SELECT url_imagem FROM imagens_produtos WHERE id_produto = :id";
+        $stmt_imagens = $pdo->prepare($sql_imagens);
+        $stmt_imagens->execute([':id' => $id]);
+        $imagens = $stmt_imagens->fetchAll(PDO::FETCH_ASSOC);
+        
+        // Adiciona o array de imagens ao array do produto
+        $produto['imagens'] = $imagens;
+
+        return $produto;
+
+    } catch (PDOException $e) {
+        error_log("Erro ao buscar detalhes do produto: " . $e->getMessage());
+        return null;
+    }
+}
+
+// BUSCA O PRODUTO NO BANCO DE DADOS
+$produto = buscarDetalhesProduto($pdo, $id_produto);
+
+if (!$produto) {
+    die("Produto não encontrado ou indisponível.");
+}
+
+// Define a primeira imagem como principal e o restante como miniaturas
+$imagem_principal = !empty($produto['imagens']) ? $produto['imagens'][0]['url_imagem'] : '/livre_mercado/imagens/placeholder.png';
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -8,11 +54,10 @@ session_start();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Livre mercado</title>
-    <link rel="stylesheet" href="../../../../css/default.css">
-     <link rel="stylesheet" href="/livre_mercado/css/vendas.css">
-    <link href="/livre_mercado/imagens/logos/livre_mercado_logo.png" rel="icon" data-head-react="true">
+    <link rel="stylesheet" href="/livre_mercado/css/default.css">
+    <link rel="stylesheet" href="/livre_mercado/css/comprar_anuncio.css">
+    <link href="../../imagens/logos/livre_mercado_logo.png" rel="icon" data-head-react="true">
     <script src="/livre_mercado/js/menu_categorias.js" defer></script>
-    <script src="/livre_mercado/js/menu_aside.js" defer></script>
 </head>
 <body>
     <header>
@@ -185,183 +230,160 @@ session_start();
         </section>
     </header>
     <main>
-        <div class="container">
-            <h1>Vendas</h1>
-        </div>
-        <div class="container">
-            <section class="controls" aria-label="filtros e busca">
-                <div class="busca_filtros">
-                    <div class="busca_anuncio">
-                    <svg width="18" height="18" viewBox="0 0 24 24" style="margin-right:8px;opacity:.6">
-                        <path d="M21 21l-4.35-4.35" stroke="#666" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
-                        <circle cx="11" cy="11" r="6" stroke="#666" stroke-width="1.6" fill="none"></circle>
-                    </svg>
-                    <input placeholder="Título, código universal, SKU ou #" />
-                    </div>
-                    <span class="divisor">|</span>
-                    <div class="filtros_busca_anuncio">
-                        <div>
-                            Últimos 6 meses
-                            <img src="/livre_mercado/imagens/icones/seta_botao_icon.png" alt="">
-                        </div>
-                    
-                        <div class="filtro_item">
-                            <img src="/livre_mercado/imagens/icones/filtro.png" class="icone" alt="">
-                            Filtrar e ordenar
-                            <img src="/livre_mercado/imagens/icones/seta_botao_icon.png" alt="">
-                        </div>
-                    </div>
+        <section class="product-page">
+            <div class="gallery">
+                <div class="thumbnails">
+                    <?php foreach ($produto['imagens'] as $imagem): ?>
+                        <img src="<?= htmlspecialchars($imagem['url_imagem']) ?>" alt="Miniatura do produto" class="thumb">
+                    <?php endforeach; ?>
+                </div>
+                 <div class="main-image-container"> 
+                    <img src="<?= htmlspecialchars($imagem_principal) ?>" alt="<?= htmlspecialchars($produto['nome']) ?>" class="main-image">
+                </div>
+            </div>
 
-                    <span class="count">0 vendas</span>
+            <div class="product-info">
+                <h1><?= htmlspecialchars($produto['nome']) ?></h1>
+                <p class="brand">Vendido por: <span>Vendedor X</span></p> <p class="price">R$ <?= number_format($produto['preco'], 2, ',', '.') ?></p>
+                <p class="installments">em 10x de R$ <?= number_format($produto['preco'] / 10, 2, ',', '.') ?> sem juros</p>
+
+                <div class="actions">
+                    <a href="/livre_mercado/view/Painel_compras/pagina_finalizar_compra.php?id=<?= $produto['id_produto'] ?>" class="buy-now">Comprar agora</a>
+                    <a href="#" class="add-to-cart">Adicionar ao carrinho</a>
                 </div>
-            </section>
-            <section>
-                <div class="cartao_anuncio">
-                    <img src="/livre_mercado/imagens/icones/anuncios_icon/anuncio_icon.png" alt="Sem vendas">
-                    <h2>Você ainda não tem vendas</h2>
-                    <p>Tente criar um anúncio para receber vendas.</p>
-                    <a class="link_anunciar" href="/livre_mercado/view\Painel_perfil\Painel_vendedor\painel_anúncios\anuncios.php">Ir para Anúncios</a>
+
+                <div class="description">
+                    <h2>Descrição</h2>
+                    <p><?= nl2br(htmlspecialchars($produto['descricao'])) ?></p>
                 </div>
-            </section>
-        </div>
+            </div>
+        </section>
     </main>
     <aside>
-        <div class="barra_lateral">
-            <h3>Minha conta</h3>
-            <ul>
-                <li>
-                    <img src="/livre_mercado/imagens/icones/anuncios_icon/compras_icon.png" alt="">
-                    <button class="botao_expandir_barra_lateral">Compras</button>
-                    <ul>
-                        <li>
-                            <a href="/livre_mercado/view/Painel_compras/pagina_pedidos.php">Compras</a>
-                        </li>
-                        <li>
-                            <a href="/livre_mercado/view/Painel_perfil/Painel_vendedor/painel_perguntas/perguntas.php">Perguntas</a>
-                        </li>
-                        <li>
-                            <a href="#">Opniões</a>
-                        </li>
-                        <li>
-                            <a href="#">Favoritos</a>
-                        </li>
-                        <li>
-                            <a href="#">Lojas que sigo</a>
-                        </li>
-                        <li>
-                            <a href="#">Listas de presentes</a>
-                        </li>
-                        <li>
-                            <a href="#">Veículos e imóveis</a>
-                        </li>
-                        <li>
-                            <a href="#">Buscas salvas</a>
-                        </li>
 
-                    </ul>
-                </li>
-                <li>
-                    <img src="/livre_mercado/imagens/icones/anuncios_icon/vendas_icon.png" alt="">
-                    <button class="botao_expandir_barra_lateral">Vendas</button>
-                    <ul>
-                        <li>
-                            <a href="">Resumo</a>
-                        </li>
-                        <li>
-                            <a href="">Novidades</a>
-                        </li>
-                        <li>
-                            <a href="/livre_mercado/view/Painel_perfil/Painel_vendedor/painel_anúncios/anuncios.php">Anúncios</a>
-                        </li>
-                        <li>
-                            <a href="/livre_mercado/view/Painel_perfil/Painel_vendedor/painel_perguntas/perguntas.php">Perguntas</a>
-                        </li>
-                        <li>
-                            <a href="/livre_mercado/view/Painel_perfil/Painel_vendedor/painel_vendas/vendas.php">Vendas</a>
-                        </li>
-                        <li>
-                            <a href="">Pós-venda</a>
-                        </li>
-                        <li>
-                            <a href="">Métricas</a>
-                        </li>
-                        <li>
-                            <a href="">Reputação</a>
-                        </li>
-                        <li>
-                            <a href="">Preferências de venda</a>
-                        </li>
-                        <li>
-                            <a href="">Central de vendedores</a>
-                        </li>
-                        <li>
-                            <a href="">Veículos e imóveis</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <img src="/livre_mercado/imagens/icones/anuncios_icon/marketing_icon.png" alt="">
-                    <button class="botao_expandir_barra_lateral">Marketing</button>
-                    <ul>
-                        <li>
-                            <a href="">Central de marketing</a>
-                        </li>
-                        <li>
-                            <a href="">Publicidade</a>
-                        </li>
-                        <li>
-                            <a href="">Promoções</a>
-                        </li>
-                        <li>
-                            <a href="">Minha página</a>
-                        </li>
-                        <li>
-                            <a href="">Canal de transmissão</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <img src="/livre_mercado/imagens/icones/anuncios_icon/emprestimo_icon.png" alt="">
-                    <button>Empréstimos</button>
-                </li>
-                <li>
-                    <img src="/livre_mercado/imagens/icones/anuncios_icon/assinatura_icon.png" alt="">
-                    <button>Assinaturas</button>
-                </li>
-                <li>
-                    <img src="/livre_mercado/imagens/icones/anuncios_icon/bioLivre_icon.png" alt="">
-                    <button>Bio livre</button>
-                </li>
-                <li>
-                    <img src="/livre_mercado/imagens/icones/anuncios_icon/faturamento_icon.png" alt="">
-                    <button class="botao_expandir_barra_lateral">Faturamento</button>
-                    <ul>
-                        <li>
-                            <a href="#">Tarifas e pagamentos</a>
-                        </li>
-                        <li>
-                            <a href="#">Emissor de NF-e</a>
-                        </li> 
-                    </ul>
-                </li>
-                <li>
-                    <img src="/livre_mercado/imagens/icones/anuncios_icon/perfil_icon.png" alt="">
-                    <button onclick="window.location.href='/livre_mercado/view/Painel_perfil/Painel_meuPerfil/Perfil_usuario.php'">Meu perfil</a></button>
-                </li>
-                <li>
-                    <img src="/livre_mercado/imagens/icones/anuncios_icon/configuracoes_icon.png" alt="">
-                    <button class="botao_expandir_barra_lateral">Configurações</button>
-                    <ul>
-                        <li>
-                            <a href="#">Minhas marcas</a>
-                        </li> 
-                    </ul>
-                </li>
+    </aside>
+    <footer  style="margin-top: 1000px;">
+        <section class="informacoes">
+            <div id="slides_de_merda">
+                <div class="info_slide">
+                    <img src="/livre_mercado/imagens/icones/pagamento_icon.png" alt="">
+                    <h2>Escolha como pagar</h2>
+                    <p>
+                        <span>Com Mercado Pago, você paga com cartão, boleto ou Pix. Você também pode pagar em até 12x sem cartão com a Linha de Crédito.</span> 
+                    </p>
+                    <a href="">Como pagar com Mercado Pago</a>
+                </div>
+                <div class="info_slide">
+                    <img src="/livre_mercado/imagens/icones/envio_icon.png" alt="">
+                    <h2>Frete grátis a partir de R$ 19</h2>
+                    <p>
+                        <span>Ao se cadastrar no Mercado Livre, você tem frete grátis em milhares de produtos.</span> 
+                    </p>
+                </div>
+                <div class="info_slide">
+                    <img src="/livre_mercado/imagens/icones/protegido_icon.png" alt="">
+                    <h2>Segurança, do início ao fim</h2>
+                    <p>
+                        <span>Você não gostou do que comprou? Devolva! No Mercado Livre não há nada que você não possa fazer, porque você está sempre protegido.</span> 
+                    </p>
+                    <a href="">Como te protegemos</a>
+                </div>
+            </div>
+        </section>
+        <section class="termos_populares">
+        <div class="container_termos">
+            <h2>Termos mais procurados</h2>
+            <ul class="lista_termos">
+            <li><a href="#">Apple Watch</a></li>
+            <li><a href="#">Ar Condicionado</a></li>
+            <li><a href="#">Ar Condicionado Inverter</a></li>
+            <li><a href="#">Bicicletas</a></li>
+            <li><a href="#">Cafeteira</a></li>
+            <li><a href="#">Carros Novos</a></li>
+            <li><a href="#">Computador</a></li>
+            <li><a href="#">Fogão 4 Bocas</a></li>
+            <li><a href="#">Fone De Ouvido Bluetooth</a></li>
+            <li><a href="#">Freezer Vertical</a></li>
+            <li><a href="#">Geladeira Frost Free</a></li>
+            <li><a href="#">Guarda Roupa Casal</a></li>
+            <li><a href="#">Guarda Roupa Solteiro</a></li>
+            <li><a href="#">iPad</a></li>
+            <li><a href="#">iPhone</a></li>
+            <li><a href="#">iPhone 8 Plus</a></li>
+            <li><a href="#">iPhone 11</a></li>
+            <li><a href="#">iPhone 13</a></li>
+            <li><a href="#">iPhone 13 Pro Max</a></li>
+            <li><a href="#">iPhone 14</a></li>
+            <li><a href="#">iPhone 14 Pro</a></li>
+            <li><a href="#">iPhone 15</a></li>
+            <li><a href="#">iPhone 16</a></li>
+            <li><a href="#">iPhone 16 Plus</a></li>
+            <li><a href="#">iPhone 16 Pro</a></li>
+            <li><a href="#">iPhone 16 Pro Max</a></li>
+            <li><a href="#">JBL</a></li>
+            <li><a href="#">Microondas</a></li>
+            <li><a href="#">Monitor</a></li>
+            <li><a href="#">Motorola</a></li>
+            <li><a href="#">Nintendo Switch</a></li>
+            <li><a href="#">Notebook</a></li>
+            <li><a href="#">Notebook Dell</a></li>
+            <li><a href="#">Painel Para TV</a></li>
+            <li><a href="#">Penteadeira</a></li>
+            <li><a href="#">Poco X5 Pro</a></li>
+            <li><a href="#">PS4</a></li>
+            <li><a href="#">PS5</a></li>
+            <li><a href="#">Redmi Note 12</a></li>
+            <li><a href="#">S22 Ultra</a></li>
+            <li><a href="#">Samsung A54</a></li>
+            <li><a href="#">Samsung S23</a></li>
+            <li><a href="#">Smartwatch</a></li>
+            <li><a href="#">Tablets Samsung</a></li>
+            <li><a href="#">Tênis Masculino</a></li>
+            <li><a href="#">Tênis Feminino</a></li>
+            <li><a href="#">TV 32 Polegadas</a></li>
+            <li><a href="#">TV 50 Polegadas</a></li>
+            <li><a href="#">TV 50 4k</a></li>
+            <li><a href="#">Ventilador</a></li>
+            <li><a href="#">Xbox</a></li>
+            <li><a href="#">Xbox Series X</a></li>
+            <li><a href="#">XDJ</a></li>
+            <li><a href="#">Xiaomi</a></li>
+            <li><a href="#">Comparador De Celulares</a></li>
+            </ul>
+
+            <h3>Pesquise produto por letra inicial</h3>
+            <ul class="lista_letras">
+            <li><a href="#">A</a></li>
+            <li><a href="#">B</a></li>
+            <li><a href="#">C</a></li>
+            <li><a href="#">D</a></li>
+            <li><a href="#">E</a></li>
+            <li><a href="#">F</a></li>
+            <li><a href="#">G</a></li>
+            <li><a href="#">H</a></li>
+            <li><a href="#">I</a></li>
+            <li><a href="#">J</a></li>
+            <li><a href="#">K</a></li>
+            <li><a href="#">L</a></li>
+            <li><a href="#">M</a></li>
+            <li><a href="#">N</a></li>
+            <li><a href="#">O</a></li>
+            <li><a href="#">P</a></li>
+            <li><a href="#">Q</a></li>
+            <li><a href="#">R</a></li>
+            <li><a href="#">S</a></li>
+            <li><a href="#">T</a></li>
+            <li><a href="#">U</a></li>
+            <li><a href="#">V</a></li>
+            <li><a href="#">W</a></li>
+            <li><a href="#">X</a></li>
+            <li><a href="#">Y</a></li>
+            <li><a href="#">Z</a></li>
             </ul>
         </div>
-    </aside>
-   <footer style="margin-top: 200px">
-        <section class="mais_info">
+        </section>
+
+        <section class="mais_info" style="background: #fff;">
             <button id="toggleInfo">
                 <span>Mais informações</span>
                 <img src="/livre_mercado/imagens/icones/seta_botao_icon.png" alt="">
@@ -462,5 +484,4 @@ session_start();
         </section>
     </footer>
 </body>
-
 </html>

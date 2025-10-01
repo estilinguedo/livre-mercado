@@ -9,13 +9,13 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Livre mercado</title>
     <link rel="stylesheet" href="../../../../css/default.css">
-     <link rel="stylesheet" href="/livre_mercado/css/vendas.css">
+     <link rel="stylesheet" href="/livre_mercado/css/anuncio.css">
     <link href="/livre_mercado/imagens/logos/livre_mercado_logo.png" rel="icon" data-head-react="true">
     <script src="/livre_mercado/js/menu_categorias.js" defer></script>
     <script src="/livre_mercado/js/menu_aside.js" defer></script>
 </head>
 <body>
-    <header>
+<header>
         <section class="conteudo_header">
             <nav class="busca">    
                 <figure>
@@ -184,48 +184,63 @@ session_start();
             </nav>
         </section>
     </header>
-    <main>
-        <div class="container">
-            <h1>Vendas</h1>
+<main>
+    <div class="container">
+        <div>
+            <h1>Anúncios</h1>
+            <div class="guias_anuncio">
+                <a href="#">Gestão de anúncios</a>
+                <a href="#">Central de promoções</a>
+                <a href="#">Gestão de preços</a>
         </div>
-        <div class="container">
-            <section class="controls" aria-label="filtros e busca">
-                <div class="busca_filtros">
-                    <div class="busca_anuncio">
-                    <svg width="18" height="18" viewBox="0 0 24 24" style="margin-right:8px;opacity:.6">
-                        <path d="M21 21l-4.35-4.35" stroke="#666" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
-                        <circle cx="11" cy="11" r="6" stroke="#666" stroke-width="1.6" fill="none"></circle>
-                    </svg>
-                    <input placeholder="Título, código universal, SKU ou #" />
-                    </div>
-                    <span class="divisor">|</span>
-                    <div class="filtros_busca_anuncio">
-                        <div>
-                            Últimos 6 meses
-                            <img src="/livre_mercado/imagens/icones/seta_botao_icon.png" alt="">
-                        </div>
-                    
-                        <div class="filtro_item">
-                            <img src="/livre_mercado/imagens/icones/filtro.png" class="icone" alt="">
-                            Filtrar e ordenar
-                            <img src="/livre_mercado/imagens/icones/seta_botao_icon.png" alt="">
-                        </div>
-                    </div>
+        </div>
+        <div>
+            <button class="botao_anuncio" onclick="window.location.href='/livre_mercado/view/Painel_perfil/Painel_vendedor/painel_anúncios/adicionar_anuncio.php'">Anunciar</button>
+        </div>
+    </div>
+    <div class="container">
+        <section class="controls" aria-label="filtros e busca">
+            <div class="busca_filtros">
+                <div class="busca_anuncio">
+                <svg width="18" height="18" viewBox="0 0 24 24" style="margin-right:8px;opacity:.6">
+                    <path d="M21 21l-4.35-4.35" stroke="#666" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+                    <circle cx="11" cy="11" r="6" stroke="#666" stroke-width="1.6" fill="none"></circle>
+                </svg>
+                <input placeholder="Título, código universal, SKU ou #" />
+                </div>
 
-                    <span class="count">0 vendas</span>
+                <div class="filtros_busca_anuncio">
+                <div class="filtro_item">Filtrar e ordenar</div>
+                <div class="filtro_item">Ativos</div>
+                <div class="filtro_item">Inativos</div>
                 </div>
-            </section>
-            <section>
-                <div class="cartao_anuncio">
-                    <img src="/livre_mercado/imagens/icones/anuncios_icon/anuncio_icon.png" alt="Sem vendas">
-                    <h2>Você ainda não tem vendas</h2>
-                    <p>Tente criar um anúncio para receber vendas.</p>
-                    <a class="link_anunciar" href="/livre_mercado/view\Painel_perfil\Painel_vendedor\painel_anúncios\anuncios.php">Ir para Anúncios</a>
-                </div>
-            </section>
-        </div>
-    </main>
-    <aside>
+            </div>
+
+            <div class="quantidade_anuncio">
+                <div class="numero_anuncio">0 Anúncios</div>
+                <div class="link_ajuda_anuncio"> | <a href="">Preciso de ajuda</a></div>
+            </div>
+        </section>
+        <section class="table-actions" aria-label="ações em massa">
+            <button disabled>Pausar</button>
+            <button disabled>Reativar</button>
+            <button disabled>Excluir</button>
+            <button>Alterar no Editor em massa <img src="/livre_mercado/imagens/icones/seta_botao_icon.png" alt=""></button>
+            
+            <button>Alterar pelo Excel<img src="/livre_mercado/imagens/icones/seta_botao_icon.png" alt=""></button>
+        </section>
+        <section>
+            <div class="cartao_anuncio">
+                <img src="/livre_mercado/imagens/icones/anuncios_icon/anuncio_icon.png" alt="">
+                <h2>Você ainda não possui anúncios</h2>
+                <p>Pode criar um e começar a vender quando quiser.</p>
+                <a class="link_anunciar" href="/livre_mercado/view/Painel_perfil/Painel_vendedor/painel_anúncios/adicionar_anuncio.php">Anunciar agora</a>
+            </div>
+        </section>
+    </div>
+</main>
+
+<aside>
         <div class="barra_lateral">
             <h3>Minha conta</h3>
             <ul>
@@ -360,107 +375,107 @@ session_start();
             </ul>
         </div>
     </aside>
-   <footer style="margin-top: 200px">
-        <section class="mais_info">
-            <button id="toggleInfo">
-                <span>Mais informações</span>
-                <img src="/livre_mercado/imagens/icones/seta_botao_icon.png" alt="">
-            </button>
+<footer>
+    <section class="mais_info">
+        <button id="toggleInfo">
+            <span>Mais informações</span>
+            <img src="/livre_mercado/imagens/icones/seta_botao_icon.png" alt="">
+        </button>
 
-            <div class="info_extra" id="infoExtra">
-                <div class="info_extra_conteudo">
-                    <div class="info_nav">
-                        <h3>Sobre o</h3>
-                        <ul>
-                            <li><a href=""><span>Mercado Livre</span></a></li>
-                            <li><a href=""><span>Investor relations</span></a></li>
-                            <li><a href=""><span>Tendências</span></a></li>
-                            <li><a href=""><span>Sustentabilidade</span></a></li>
-                            <li><a href=""><span>Blog</span></a></li>
-                        </ul>
-                    </div>
-                    <div class="info_nav">
-                        <h3>Outros sites</h3>
-                        <ul>
-                            <li><a href=""><span>Desenvolvedores</span></a></li>
-                            <li><a href=""><span>Mercado Pago</span></a></li>
-                            <li><a href=""><span>Envios</span></a></li>
-                            <li><a href=""><span>Mercado Shops</span></a></li>
-                            <li><a href=""><span>Mercado Ads</span></a></li>
-                        </ul>
-                    </div>
-                    <div class="info_nav">
-                        <h3>Contato</h3>
-                        <ul>
-                            <li><a href=""><span>Comprar</span></a></li>
-                            <li><a href=""><span>Vender</span></a></li>
-                            <li><a href=""><span>Solução de problemas</span></a></li>
-                            <li><a href=""><span>Segurança</span></a></li>
-                        </ul>
-                    </div>
-                    <div class="info_nav">
-                        <h3>Redes sociais</h3>
-                        <ul>
-                            <li><a href=""><span>X</span></a></li>
-                            <li><a href=""><span>Facebook</span></a></li>
-                            <li><a href=""><span>Instagram</span></a></li>
-                            <li><a href=""><span>Youtube</span></a></li>
-                        </ul>
-                    </div>
-                    <div class="info_nav">
-                        <h3>Minha conta</h3>
-                        <ul>
-                            <li><a href=""><span>Entre</span></a></li>
-                            <li><a href=""><span>Vender</span></a></li>
-                        </ul>
-                    </div>
-                    <div class="info_nav">
-                        <h3>Assinaturas</h3>
-                        <ul>
-                            <li><a href=""><span>Meli+</span></a></li>
-                            <li><a href=""><span>Disney+</span></a></li>
-                            <li><a href=""><span>HBO Max</span></a></li>
-                            <li><a href=""><span>Paramount+</span></a></li>
-                            <li><a href=""><span>Universal+</span></a></li>
-                            <li><a href=""><span>Globoplay Premium</span></a></li>
-                        </ul>
-                    </div>
-                    <div class="info_nav">
-                        <h3>Temporadas</h3>
-                        <ul>
-                            <li><a href=""><span>Dia do consumidor</span></a></li>
-                            <li><a href=""><span>Dia das mães</span></a></li>
-                            <li><a href=""><span>Black Friday</span></a></li>
-                            <li><a href=""><span>Descontaço</span></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="conteudo_footer">
-            <div>
-                <div class="info_primaria">
+        <div class="info_extra" id="infoExtra">
+            <div class="info_extra_conteudo">
+                <div class="info_nav">
+                    <h3>Sobre o</h3>
                     <ul>
-                        <li><a href="">Trabalhe conosco</a></li>
-                        <li><a href="">Termos e condições</a></li>
-                        <li><a href="">Promoções</a></li>
-                        <li><a href="">Como cuidamos da sua privacidade</a></li>
-                        <li><img class="img_info_primaria" src="/livre_mercado/imagens/icones/acessibilidade_icon.png" alt=""><a href="">Acessibilidade</a></li>
-                        <li><a href="">Contato</a></li>
-                        <li><a href="">Informações sobre seguros</a></li>
-                        <li><a href="">Programa de afiliados</a></li>
-                        <li><a href="">Lista de presentes</a></li>
+                        <li><a href=""><span>Mercado Livre</span></a></li>
+                        <li><a href=""><span>Investor relations</span></a></li>
+                        <li><a href=""><span>Tendências</span></a></li>
+                        <li><a href=""><span>Sustentabilidade</span></a></li>
+                        <li><a href=""><span>Blog</span></a></li>
                     </ul>
                 </div>
-
-                <div class="info_secundaria">
-                    <small class="info_secundaria_texto">Copyright © 1999-2025 Ebazar.com.br LTDA.</small>
-                    <p class="info_secundaria_texto">CNPJ n.º 03.007.331/0001-41 / Av. das Nações Unidas, nº 3.003, Bonfim, Osasco/SP - CEP 06233-903 - empresa do grupo Mercado Livre.</p>
+                <div class="info_nav">
+                    <h3>Outros sites</h3>
+                    <ul>
+                        <li><a href=""><span>Desenvolvedores</span></a></li>
+                        <li><a href=""><span>Mercado Pago</span></a></li>
+                        <li><a href=""><span>Envios</span></a></li>
+                        <li><a href=""><span>Mercado Shops</span></a></li>
+                        <li><a href=""><span>Mercado Ads</span></a></li>
+                    </ul>
+                </div>
+                <div class="info_nav">
+                    <h3>Contato</h3>
+                    <ul>
+                        <li><a href=""><span>Comprar</span></a></li>
+                        <li><a href=""><span>Vender</span></a></li>
+                        <li><a href=""><span>Solução de problemas</span></a></li>
+                        <li><a href=""><span>Segurança</span></a></li>
+                    </ul>
+                </div>
+                <div class="info_nav">
+                    <h3>Redes sociais</h3>
+                    <ul>
+                        <li><a href=""><span>X</span></a></li>
+                        <li><a href=""><span>Facebook</span></a></li>
+                        <li><a href=""><span>Instagram</span></a></li>
+                        <li><a href=""><span>Youtube</span></a></li>
+                    </ul>
+                </div>
+                <div class="info_nav">
+                    <h3>Minha conta</h3>
+                    <ul>
+                        <li><a href=""><span>Entre</span></a></li>
+                        <li><a href=""><span>Vender</span></a></li>
+                    </ul>
+                </div>
+                <div class="info_nav">
+                    <h3>Assinaturas</h3>
+                    <ul>
+                        <li><a href=""><span>Meli+</span></a></li>
+                        <li><a href=""><span>Disney+</span></a></li>
+                        <li><a href=""><span>HBO Max</span></a></li>
+                        <li><a href=""><span>Paramount+</span></a></li>
+                        <li><a href=""><span>Universal+</span></a></li>
+                        <li><a href=""><span>Globoplay Premium</span></a></li>
+                    </ul>
+                </div>
+                <div class="info_nav">
+                    <h3>Temporadas</h3>
+                    <ul>
+                        <li><a href=""><span>Dia do consumidor</span></a></li>
+                        <li><a href=""><span>Dia das mães</span></a></li>
+                        <li><a href=""><span>Black Friday</span></a></li>
+                        <li><a href=""><span>Descontaço</span></a></li>
+                    </ul>
                 </div>
             </div>
-        </section>
-    </footer>
+        </div>
+    </section>
+
+    <section class="conteudo_footer">
+        <div>
+            <div class="info_primaria">
+                <ul>
+                    <li><a href="">Trabalhe conosco</a></li>
+                    <li><a href="">Termos e condições</a></li>
+                    <li><a href="">Promoções</a></li>
+                    <li><a href="">Como cuidamos da sua privacidade</a></li>
+                    <li><img class="img_info_primaria" src="/livre_mercado/imagens/icones/acessibilidade_icon.png" alt=""><a href="">Acessibilidade</a></li>
+                    <li><a href="">Contato</a></li>
+                    <li><a href="">Informações sobre seguros</a></li>
+                    <li><a href="">Programa de afiliados</a></li>
+                    <li><a href="">Lista de presentes</a></li>
+                </ul>
+            </div>
+
+            <div class="info_secundaria">
+                <small class="info_secundaria_texto">Copyright © 1999-2025 Ebazar.com.br LTDA.</small>
+                <p class="info_secundaria_texto">CNPJ n.º 03.007.331/0001-41 / Av. das Nações Unidas, nº 3.003, Bonfim, Osasco/SP - CEP 06233-903 - empresa do grupo Mercado Livre.</p>
+            </div>
+        </div>
+    </section>
+</footer>
 </body>
 
 </html>

@@ -8,14 +8,13 @@ session_start();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Livre mercado</title>
-    <link rel="stylesheet" href="../../../../css/default.css">
-     <link rel="stylesheet" href="/livre_mercado/css/vendas.css">
-    <link href="/livre_mercado/imagens/logos/livre_mercado_logo.png" rel="icon" data-head-react="true">
+    <link rel="stylesheet" href="/livre_mercado/css/default.css">
+    <link rel="stylesheet" href="/livre_mercado/css/carrinho.css">
+    <link href="../../imagens/logos/livre_mercado_logo.png" rel="icon" data-head-react="true">
     <script src="/livre_mercado/js/menu_categorias.js" defer></script>
-    <script src="/livre_mercado/js/menu_aside.js" defer></script>
 </head>
 <body>
-    <header>
+     <header>
         <section class="conteudo_header">
             <nav class="busca">    
                 <figure>
@@ -185,182 +184,12 @@ session_start();
         </section>
     </header>
     <main>
-        <div class="container">
-            <h1>Vendas</h1>
-        </div>
-        <div class="container">
-            <section class="controls" aria-label="filtros e busca">
-                <div class="busca_filtros">
-                    <div class="busca_anuncio">
-                    <svg width="18" height="18" viewBox="0 0 24 24" style="margin-right:8px;opacity:.6">
-                        <path d="M21 21l-4.35-4.35" stroke="#666" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
-                        <circle cx="11" cy="11" r="6" stroke="#666" stroke-width="1.6" fill="none"></circle>
-                    </svg>
-                    <input placeholder="Título, código universal, SKU ou #" />
-                    </div>
-                    <span class="divisor">|</span>
-                    <div class="filtros_busca_anuncio">
-                        <div>
-                            Últimos 6 meses
-                            <img src="/livre_mercado/imagens/icones/seta_botao_icon.png" alt="">
-                        </div>
-                    
-                        <div class="filtro_item">
-                            <img src="/livre_mercado/imagens/icones/filtro.png" class="icone" alt="">
-                            Filtrar e ordenar
-                            <img src="/livre_mercado/imagens/icones/seta_botao_icon.png" alt="">
-                        </div>
-                    </div>
-
-                    <span class="count">0 vendas</span>
-                </div>
-            </section>
-            <section>
-                <div class="cartao_anuncio">
-                    <img src="/livre_mercado/imagens/icones/anuncios_icon/anuncio_icon.png" alt="Sem vendas">
-                    <h2>Você ainda não tem vendas</h2>
-                    <p>Tente criar um anúncio para receber vendas.</p>
-                    <a class="link_anunciar" href="/livre_mercado/view\Painel_perfil\Painel_vendedor\painel_anúncios\anuncios.php">Ir para Anúncios</a>
-                </div>
-            </section>
-        </div>
+        <h1>Página não finalizada</h1>
     </main>
     <aside>
-        <div class="barra_lateral">
-            <h3>Minha conta</h3>
-            <ul>
-                <li>
-                    <img src="/livre_mercado/imagens/icones/anuncios_icon/compras_icon.png" alt="">
-                    <button class="botao_expandir_barra_lateral">Compras</button>
-                    <ul>
-                        <li>
-                            <a href="/livre_mercado/view/Painel_compras/pagina_pedidos.php">Compras</a>
-                        </li>
-                        <li>
-                            <a href="/livre_mercado/view/Painel_perfil/Painel_vendedor/painel_perguntas/perguntas.php">Perguntas</a>
-                        </li>
-                        <li>
-                            <a href="#">Opniões</a>
-                        </li>
-                        <li>
-                            <a href="#">Favoritos</a>
-                        </li>
-                        <li>
-                            <a href="#">Lojas que sigo</a>
-                        </li>
-                        <li>
-                            <a href="#">Listas de presentes</a>
-                        </li>
-                        <li>
-                            <a href="#">Veículos e imóveis</a>
-                        </li>
-                        <li>
-                            <a href="#">Buscas salvas</a>
-                        </li>
 
-                    </ul>
-                </li>
-                <li>
-                    <img src="/livre_mercado/imagens/icones/anuncios_icon/vendas_icon.png" alt="">
-                    <button class="botao_expandir_barra_lateral">Vendas</button>
-                    <ul>
-                        <li>
-                            <a href="">Resumo</a>
-                        </li>
-                        <li>
-                            <a href="">Novidades</a>
-                        </li>
-                        <li>
-                            <a href="/livre_mercado/view/Painel_perfil/Painel_vendedor/painel_anúncios/anuncios.php">Anúncios</a>
-                        </li>
-                        <li>
-                            <a href="/livre_mercado/view/Painel_perfil/Painel_vendedor/painel_perguntas/perguntas.php">Perguntas</a>
-                        </li>
-                        <li>
-                            <a href="/livre_mercado/view/Painel_perfil/Painel_vendedor/painel_vendas/vendas.php">Vendas</a>
-                        </li>
-                        <li>
-                            <a href="">Pós-venda</a>
-                        </li>
-                        <li>
-                            <a href="">Métricas</a>
-                        </li>
-                        <li>
-                            <a href="">Reputação</a>
-                        </li>
-                        <li>
-                            <a href="">Preferências de venda</a>
-                        </li>
-                        <li>
-                            <a href="">Central de vendedores</a>
-                        </li>
-                        <li>
-                            <a href="">Veículos e imóveis</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <img src="/livre_mercado/imagens/icones/anuncios_icon/marketing_icon.png" alt="">
-                    <button class="botao_expandir_barra_lateral">Marketing</button>
-                    <ul>
-                        <li>
-                            <a href="">Central de marketing</a>
-                        </li>
-                        <li>
-                            <a href="">Publicidade</a>
-                        </li>
-                        <li>
-                            <a href="">Promoções</a>
-                        </li>
-                        <li>
-                            <a href="">Minha página</a>
-                        </li>
-                        <li>
-                            <a href="">Canal de transmissão</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <img src="/livre_mercado/imagens/icones/anuncios_icon/emprestimo_icon.png" alt="">
-                    <button>Empréstimos</button>
-                </li>
-                <li>
-                    <img src="/livre_mercado/imagens/icones/anuncios_icon/assinatura_icon.png" alt="">
-                    <button>Assinaturas</button>
-                </li>
-                <li>
-                    <img src="/livre_mercado/imagens/icones/anuncios_icon/bioLivre_icon.png" alt="">
-                    <button>Bio livre</button>
-                </li>
-                <li>
-                    <img src="/livre_mercado/imagens/icones/anuncios_icon/faturamento_icon.png" alt="">
-                    <button class="botao_expandir_barra_lateral">Faturamento</button>
-                    <ul>
-                        <li>
-                            <a href="#">Tarifas e pagamentos</a>
-                        </li>
-                        <li>
-                            <a href="#">Emissor de NF-e</a>
-                        </li> 
-                    </ul>
-                </li>
-                <li>
-                    <img src="/livre_mercado/imagens/icones/anuncios_icon/perfil_icon.png" alt="">
-                    <button onclick="window.location.href='/livre_mercado/view/Painel_perfil/Painel_meuPerfil/Perfil_usuario.php'">Meu perfil</a></button>
-                </li>
-                <li>
-                    <img src="/livre_mercado/imagens/icones/anuncios_icon/configuracoes_icon.png" alt="">
-                    <button class="botao_expandir_barra_lateral">Configurações</button>
-                    <ul>
-                        <li>
-                            <a href="#">Minhas marcas</a>
-                        </li> 
-                    </ul>
-                </li>
-            </ul>
-        </div>
     </aside>
-   <footer style="margin-top: 200px">
+     <footer  style="margin-top: 525px;">
         <section class="mais_info">
             <button id="toggleInfo">
                 <span>Mais informações</span>

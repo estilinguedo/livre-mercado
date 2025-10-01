@@ -1,0 +1,97 @@
+main {
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.criar-anuncio-container {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  padding: 30px;
+  max-width: 650px;
+  width: 100%;
+}
+
+.criar-anuncio-container h1 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 25px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  font-size: 14px;
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #444;
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 15px;
+  transition: border 0.2s, box-shadow 0.2s;
+  background: #fff;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #3483fa;
+  box-shadow: 0 0 0 2px rgba(52, 131, 250, 0.15);
+  outline: none;
+}
+
+
+.btn-salvar {
+  background: #3483fa;
+  color: #fff;
+  border: none;
+  padding: 14px;
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+  width: 100%;
+  margin-top: 10px;
+}
+.form-group textarea {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 15px;
+  transition: border 0.2s, box-shadow 0.2s;
+  background: #fff;
+  resize: none; 
+}
+.btn-salvar:hover {
+  background: #2968c8;
+}
+
+/* Estilo para a mensagem de feedback (sucesso ou erro) */
+.mensagem {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    color: #155724;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    text-align: center;
+    font-size: 16px;
+}
+
+/* Estilo alternativo para mensagens de erro */
+.mensagem.erro {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}

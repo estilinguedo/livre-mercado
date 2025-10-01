@@ -1,0 +1,156 @@
+
+main { 
+    padding: 36px 0; 
+}
+.container { 
+    max-width: 1100px; 
+    margin: 0 auto; 
+    padding: 0 24px; 
+}
+
+.container > h1 {
+  font-size: 28px;
+  font-weight: 600;
+  color: #1f1f1f;
+  margin: 0 0 18px 0;
+}
+
+.controls {
+  display: flex;
+  align-items: center;          
+  justify-content: flex-start;
+  gap: 18px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+
+.busca_filtros {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+}
+
+.busca_anuncio {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 0 1 520px;              
+  min-width: 320px;
+  max-width: 640px;
+  height: 42px;                
+  padding: 6px 14px;
+  border-radius: 22px;
+  background: #ffffff;         
+  border: 1px solid #000;      
+  box-shadow: none;             
+  box-sizing: border-box;
+}
+
+
+.busca_anuncio svg {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  opacity: .6;
+  display: inline-block;
+}
+
+
+.busca_anuncio input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  line-height: 20px;
+  color: #222;
+}
+.busca_anuncio input::placeholder { 
+    color: #999; 
+}
+
+
+.divisor {
+  display: inline-block;
+  margin: 0 8px;
+  color: rgba(0,0,0,0.18);
+  font-weight: 600;
+  align-self: center;
+  line-height: 1;
+}
+
+
+.filtros_busca_anuncio {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  font-size: 13px;
+  color: #666;
+  flex: 0 0 auto;
+}
+
+
+.filtros_busca_anuncio > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 4px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+
+.filtros_busca_anuncio img {
+  width: 14px;
+  height: auto;
+  display: inline-block;
+}
+
+
+.container > section:last-of-type {
+background-color: rgb(229, 229, 229);        
+  border-radius: 6px;
+  padding: 56px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 260px;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.02);
+}
+
+.cartao_anuncio {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  text-align: center;
+  max-width: 560px;
+}
+.count{
+    margin: auto;
+      color: #666;
+}
+.cartao_anuncio img { 
+    width: 82px; height: auto; 
+    margin-bottom: 8px; opacity: .95; }
+.cartao_anuncio h2 { 
+    font-size: 18px; 
+    font-weight: 600; 
+    color: #222; 
+    margin: 0; }
+.cartao_anuncio p { 
+    font-size: 13px; 
+    color: #6f6f6f; margin: 0; 
+    line-height: 1.4; }
+.link_anunciar { 
+    margin-top: 8px; 
+    color: #1a73e8; 
+    font-size: 13px; 
+    font-weight: 600; 
+    text-decoration: none; 
+}
+

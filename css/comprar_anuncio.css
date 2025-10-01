@@ -1,0 +1,132 @@
+.product-page {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 3rem;
+    padding: 2rem;
+    background: #fff;
+    max-width: 1200px;
+    margin: 2rem auto;
+    border-radius: 8px;
+}
+
+.gallery {
+    flex: 0 1 450px;
+}
+
+/* NOVO: Container para a imagem principal */
+.main-image-container {
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.main-image {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease; /* Transição para o zoom */
+}
+
+/* NOVO: Efeito de zoom no hover */
+.main-image:hover {
+    transform: scale(1.1);
+}
+
+.thumbnails {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.thumb {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: border 0.2s;
+}
+
+.thumb:hover {
+    border: 2px solid #3483fa;
+}
+
+.product-info {
+    flex: 0 1 450px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.product-info h1 {
+    font-size: 1.8rem;
+    margin: 0;
+    color: #333;
+}
+
+.brand {
+    font-size: 1rem;
+    color: #555;
+}
+
+.price {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #00a650;
+}
+
+.installments {
+    font-size: 1rem;
+    color: #333;
+}
+
+.actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.actions a {
+    text-decoration: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.buy-now {
+    background: #3483fa;
+    color: #fff;
+}
+
+.buy-now:hover {
+    background: #2968c8;
+}
+
+.add-to-cart {
+    background: #e3edfb;
+    color: #3483fa;
+    border: 1px solid #3483fa;
+}
+
+.add-to-cart:hover {
+    background: #d6e9ff;
+}
+
+.details {
+    list-style: none;
+    padding: 0;
+    margin-top: 1.5rem;
+}
+
+.details li {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: #444;
+}
+
+/* Estilo para a miniatura que está sendo exibida na imagem principal */
+.thumb.active {
+    border: 2px solid #3483fa; /* Usa a mesma cor azul dos botões */
+}
